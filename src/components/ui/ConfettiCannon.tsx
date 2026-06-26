@@ -2,35 +2,39 @@
 
 import { useEffect, useCallback, useRef } from 'react';
 
-type ConfettiMode = 'burst' | 'fireworks';
-
 interface ConfettiCannonProps {
-  mode: ConfettiMode;
-  trigger?: boolean;   // flip to true to fire burst
+  trigger?: boolean;   // flip to true to fire a burst
+  loop?: boolean;      // if true, continuously fires fireworks while trigger is true
   origin?: { x: number; y: number };
   colors?: string[];
-  active?: boolean;    // for fireworks mode
 }
 
+/**
+ * ConfettiCannon — side-effect only, renders nothing.
+ *
+ * Usage:
+ *   <ConfettiCannon trigger={true} />           → one-time burst
+ *   <ConfettiCannon trigger={active} loop />    → continuous fireworks while active
+ */
 export default function ConfettiCannon({
-  mode,
   trigger = false,
-  origin = { x: 0.5, y: 0.5 },
-  colors = ['#FF7EB6', '#FFD166', '#DCC8FF', '#7ED6A7', '#FFC4DD'],
-  active = false,
+  loop    = false,
+  origin  = { x: 0.5, y: 0.5 },
+  colors  = ['#FF7EB6', '#FFD166', '#DCC8FF', '#7ED6A7', '#FFC4DD'],
 }: ConfettiCannonProps) {
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const rafRef      = useRef<number | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const firedRef    = useRef(false);
 
   const fireBurst = useCallback(
-    async (orig = origin) => {
+    async () => {
       try {
         const confetti = (await import('canvas-confetti')).default;
         const count = 200;
         const fire = (ratio: number, opts: Record<string, unknown>) =>
           confetti({
             particleCount: Math.floor(count * ratio),
-            origin: orig,
+            origin,
             colors,
             disableForReducedMotion: true,
             ...opts,
@@ -42,34 +46,20 @@ export default function ConfettiCannon({
         fire(0.10, { spread: 70,  startVelocity: 45 });
       } catch { /* canvas-confetti not loaded */ }
     },
-    [origin, colors]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   const startFireworks = useCallback(async () => {
     try {
       const confetti = (await import('canvas-confetti')).default;
       const frame = () => {
-        confetti({
-          particleCount: 4,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0, y: 0.6 },
-          colors,
-          disableForReducedMotion: true,
-        });
-        confetti({
-          particleCount: 4,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1, y: 0.6 },
-          colors,
-          disableForReducedMotion: true,
-        });
+        confetti({ particleCount: 4, angle: 60,  spread: 55, origin: { x: 0, y: 0.6 }, colors, disableForReducedMotion: true });
+        confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1, y: 0.6 }, colors, disableForReducedMotion: true });
         rafRef.current = requestAnimationFrame(frame);
       };
       rafRef.current = requestAnimationFrame(frame);
 
-      // Also do periodic big bursts
       intervalRef.current = setInterval(() => {
         confetti({
           particleCount: 80,
@@ -81,7 +71,8 @@ export default function ConfettiCannon({
         });
       }, 2500);
     } catch { /* silently fail */ }
-  }, [colors]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const stopFireworks = useCallback(() => {
     if (rafRef.current)      cancelAnimationFrame(rafRef.current);
@@ -90,25 +81,27 @@ export default function ConfettiCannon({
     intervalRef.current = null;
   }, []);
 
-  // Burst mode: fire when trigger flips to true
+  // One-time burst
   useEffect(() => {
-    if (mode === 'burst' && trigger) {
-      fireBurst(origin);
+    if (!loop && trigger && !firedRef.current) {
+      firedRef.current = true;
+      fireBurst();
     }
-  }, [mode, trigger, fireBurst, origin]);
+    if (!trigger) firedRef.current = false;
+  }, [trigger, loop, fireBurst]);
 
-  // Fireworks mode: start/stop based on active
+  // Continuous fireworks
   useEffect(() => {
-    if (mode !== 'fireworks') return;
-    if (active) {
+    if (!loop) return;
+    if (trigger) {
       startFireworks();
     } else {
       stopFireworks();
     }
     return stopFireworks;
-  }, [mode, active, startFireworks, stopFireworks]);
+  }, [trigger, loop, startFireworks, stopFireworks]);
 
-  return null; // renders nothing — side effect only
+  return null;
 }
 
 /** Imperative helper to fire a confetti burst at a specific screen position */
