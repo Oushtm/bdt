@@ -24,7 +24,7 @@ export default function EndingScreen({ onRestart }: EndingScreenProps) {
 
   return (
     <div
-      className="absolute inset-0 flex flex-col items-center justify-between overflow-hidden pt-20 pb-8 px-6"
+      className="absolute inset-0 flex flex-col items-center justify-between overflow-hidden pt-[clamp(4.5rem,11dvh,5.5rem)] pb-[clamp(1rem,4dvh,2rem)] px-6"
       style={{
         background: 'radial-gradient(ellipse at 50% 15%, #F5DDE8 0%, #EDE0F5 45%, #F5EFDB 100%)',
       }}
@@ -50,14 +50,14 @@ export default function EndingScreen({ onRestart }: EndingScreenProps) {
       ))}
 
       {/* Header Spacer (empty or for top bar margin) */}
-      <div className="h-6" />
+      <div className="h-2" />
 
       {/* Main Content Area (Vertically Centered) */}
-      <div className="flex-1 w-full flex flex-col items-center justify-center gap-5 relative z-10">
+      <div className="flex-1 w-full flex flex-col items-center justify-center gap-[clamp(8px,2.5dvh,20px)] relative z-10">
         {/* Main title area */}
-        <div className="flex flex-col items-center gap-2 text-center">
+        <div className="flex flex-col items-center gap-1.5 text-center">
           <motion.div
-            className="text-[64px] leading-none select-none"
+            className="text-[clamp(3.5rem,9dvh,4.5rem)] leading-none select-none"
             initial={{ scale: 0, rotate: -20 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ ...springs.bouncy, delay: 0.2 }}
@@ -67,7 +67,7 @@ export default function EndingScreen({ onRestart }: EndingScreenProps) {
 
           <div className="text-center space-y-0.5">
             <motion.h1
-              className="font-display text-3xl font-black tracking-tight text-[#2C2230] leading-tight"
+              className="font-display text-2xl sm:text-3xl font-black tracking-tight text-[#2C2230] leading-tight"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...springs.gentle, delay: 0.5 }}
@@ -75,7 +75,7 @@ export default function EndingScreen({ onRestart }: EndingScreenProps) {
               Happy Birthday
             </motion.h1>
             <motion.p
-              className="font-display text-xl font-bold text-[#E58CA3]"
+              className="font-display text-lg sm:text-xl font-bold text-[#E58CA3]"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...springs.gentle, delay: 0.75 }}
@@ -85,7 +85,7 @@ export default function EndingScreen({ onRestart }: EndingScreenProps) {
           </div>
 
           <motion.div
-            className="flex gap-2.5 mt-0.5"
+            className="flex gap-2 mt-0.5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.1 }}
@@ -93,7 +93,7 @@ export default function EndingScreen({ onRestart }: EndingScreenProps) {
             {['🌟', '🎈', '🎉', '✨', '🌸'].map((em, i) => (
               <motion.span
                 key={i}
-                className="text-lg"
+                className="text-base"
                 animate={{ y: [0, -6, 0], rotate: [0, 8, -8, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, delay: i * 0.2 }}
               >
@@ -105,7 +105,7 @@ export default function EndingScreen({ onRestart }: EndingScreenProps) {
 
         {/* Celebration card */}
         <motion.div
-          className="glass rounded-3xl px-6 py-4 mx-1 text-center shadow-lg border border-white/60 max-w-[310px]"
+          className="glass rounded-3xl px-5 py-[clamp(10px,2.5dvh,16px)] mx-1 text-center shadow-lg border border-white/60 max-w-[310px]"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ ...springs.gentle, delay: 1.4 }}
@@ -115,11 +115,11 @@ export default function EndingScreen({ onRestart }: EndingScreenProps) {
             <br /><br />
             Wishing you a year filled with laughter, success, and endless joy. You deserve all the happiness in the world! ✨
           </p>
-          <div className="flex justify-center gap-2 mt-2">
+          <div className="flex justify-center gap-1.5 mt-2">
             {['🎀', '🎁', '🎈', '🎊', '🎉'].map((em, i) => (
               <motion.span
                 key={i}
-                className="text-base"
+                className="text-sm sm:text-base"
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.28 }}
               >
@@ -130,13 +130,13 @@ export default function EndingScreen({ onRestart }: EndingScreenProps) {
         </motion.div>
 
         {/* Walking cats parade */}
-        <div className="relative h-14 w-full overflow-hidden">
+        <div className="relative h-12 w-full overflow-hidden">
           {CATS_DATA.map((cat) => (
             <CatWalking
               key={cat.id}
               startX={cat.startX}
               delay={cat.delay}
-              scale={cat.scale * 0.8}
+              scale={cat.scale * 0.65}
               color={cat.color}
             />
           ))}

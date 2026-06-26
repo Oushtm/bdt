@@ -58,7 +58,7 @@ export default function FinalMessageScreen({ onComplete }: FinalMessageScreenPro
 
   return (
     <div
-      className="absolute inset-0 flex flex-col items-center justify-between overflow-hidden pt-20 pb-8 px-6"
+      className="absolute inset-0 flex flex-col items-center justify-between overflow-hidden pt-[clamp(4.5rem,11dvh,5.5rem)] pb-[clamp(1rem,4dvh,2rem)] px-6"
       style={{
         background: 'radial-gradient(ellipse at 50% 20%, #F5DDE8 0%, #EDE0F5 50%, #F5EFDB 100%)',
       }}
@@ -82,10 +82,10 @@ export default function FinalMessageScreen({ onComplete }: FinalMessageScreenPro
       ))}
 
       {/* Header Spacer */}
-      <div className="h-4" />
+      <div className="h-2" />
 
       {/* Main Content Area (Vertically Centered) */}
-      <div className="flex-1 w-full flex flex-col items-center justify-center gap-4 relative z-10 overflow-hidden">
+      <div className="flex-1 w-full flex flex-col items-center justify-center gap-[clamp(8px,2dvh,16px)] relative z-10 overflow-hidden">
         {/* Kitten */}
         <motion.div
           className="pointer-events-none flex-shrink-0"
@@ -102,9 +102,9 @@ export default function FinalMessageScreen({ onComplete }: FinalMessageScreenPro
         </motion.div>
 
         {/* Letter card */}
-        <div className="w-full max-w-[320px] mx-auto overflow-hidden">
+        <div className="w-full max-w-[320px] mx-auto overflow-hidden flex-shrink">
           <motion.div
-            className="glass rounded-3xl px-5 py-5 w-full shadow-lg border border-white/60 flex flex-col max-h-[350px]"
+            className="glass rounded-3xl px-5 py-5 w-full shadow-lg border border-white/60 flex flex-col max-h-[clamp(180px,36dvh,350px)]"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ ...springs.gentle, delay: 0.2 }}

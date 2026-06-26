@@ -2,10 +2,9 @@
 
 import { motion } from 'framer-motion';
 
-/** Cute cat waving hello */
-export default function CatWaving() {
+export default function CatWaving({ className = 'w-52 h-52' }: { className?: string }) {
   return (
-    <div className="relative w-52 h-52 mx-auto select-none">
+    <div className={`relative mx-auto select-none ${className}`}>
       <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
         {/* Shadow */}
         <ellipse cx="100" cy="200" rx="55" ry="9" fill="rgba(0,0,0,0.06)" />

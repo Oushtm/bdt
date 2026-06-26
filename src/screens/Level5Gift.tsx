@@ -58,7 +58,7 @@ export default function Level5Gift({ onComplete, onProgress }: Level5GiftProps) 
 
   return (
     <div
-      className="absolute inset-0 flex flex-col items-center justify-between overflow-hidden px-6 pt-20 pb-8"
+      className="absolute inset-0 flex flex-col items-center justify-between overflow-hidden px-6 pt-[clamp(4.5rem,11dvh,5.5rem)] pb-[clamp(1rem,4dvh,2rem)]"
       style={{ background: 'linear-gradient(160deg, #FFE8F5 0%, #FFF4D6 55%, #E8F5FF 100%)' }}
     >
       <ConfettiCannon trigger={showConfetti} />
@@ -72,8 +72,8 @@ export default function Level5Gift({ onComplete, onProgress }: Level5GiftProps) 
       />
 
       {/* Header Area (HUD Info) */}
-      <div className="w-full flex flex-col items-center justify-end h-20 text-center pointer-events-none z-20">
-        <h2 className="font-display text-base text-[#2C2230]/70 tracking-wide mb-1 animate-pulse-glow">
+      <div className="w-full flex flex-col items-center justify-end h-[clamp(3.5rem,8dvh,5rem)] text-center pointer-events-none z-20">
+        <h2 className="font-display text-sm sm:text-base text-[#2C2230]/70 tracking-wide mb-1 animate-pulse-glow">
           {phase < 3 ? currentLayer.hint : 'Gift Unwrapped! 🎁'}
         </h2>
         {phase === 0 && (

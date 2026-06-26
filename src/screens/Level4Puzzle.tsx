@@ -74,15 +74,15 @@ export default function Level4Puzzle({ onComplete, onProgress }: Level4PuzzlePro
       />
 
       {/* Target pattern */}
-      <div className="flex flex-col items-center px-6 pt-20 pb-4 mb-4">
-        <p className="text-[10px] font-bold text-[#3D3142]/40 tracking-widest uppercase mb-2">
+      <div className="flex flex-col items-center px-6 pt-[clamp(3.5rem,9dvh,4.5rem)] pb-2 mb-2">
+        <p className="text-[10px] font-bold text-[#3D3142]/40 tracking-widest uppercase mb-1">
           Target Order:
         </p>
-        <div className="flex flex-wrap gap-1.5 justify-center">
+        <div className="flex flex-wrap gap-1 justify-center">
           {CORRECT_ORDER.map((word, i) => (
             <div
               key={i}
-              className="px-3 py-1 rounded-full text-xs font-bold"
+              className="px-2.5 py-0.5 rounded-full text-[10px] font-bold"
               style={{
                 background: `${TILE_COLORS[word]}22`,
                 border: `1px solid ${TILE_COLORS[word]}66`,
@@ -96,12 +96,12 @@ export default function Level4Puzzle({ onComplete, onProgress }: Level4PuzzlePro
       </div>
 
       {/* Draggable tiles */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 overflow-hidden">
         <Reorder.Group
           axis="y"
           values={items}
           onReorder={handleReorder}
-          className="flex flex-col gap-3 w-full max-w-xs"
+          className="flex flex-col gap-[clamp(6px,1.5dvh,12px)] w-full max-w-[290px]"
         >
           {items.map((item, index) => {
             const isCorrect = item === CORRECT_ORDER[index];
@@ -113,7 +113,7 @@ export default function Level4Puzzle({ onComplete, onProgress }: Level4PuzzlePro
                 whileDrag={{ scale: 1.05, zIndex: 50 }}
               >
                 <motion.div
-                  className="flex items-center gap-4 px-5 py-4 rounded-2xl shadow-md"
+                  className="flex items-center gap-3.5 px-4 py-[clamp(8px,1.6dvh,13px)] rounded-2xl shadow-sm"
                   style={{
                     background: isCorrect && solved
                       ? 'rgba(126, 214, 167, 0.3)'
@@ -125,18 +125,18 @@ export default function Level4Puzzle({ onComplete, onProgress }: Level4PuzzlePro
                   transition={{ duration: 0.3 }}
                 >
                   {/* Drag handle */}
-                  <span className="text-[#3D3142]/30 text-lg font-black">⣿</span>
+                  <span className="text-[#3D3142]/30 text-base font-black">⣿</span>
 
                   {/* Word */}
                   <span
-                    className="font-display text-2xl flex-1"
+                    className="font-display text-[clamp(1.125rem,3.2dvh,1.5rem)] font-bold flex-1"
                     style={{ color: TILE_COLORS[item] }}
                   >
                     {item}
                   </span>
 
                   {/* Position number */}
-                  <span className="text-xs font-bold text-[#3D3142]/30">
+                  <span className="text-[10px] font-bold text-[#3D3142]/30">
                     #{index + 1}
                   </span>
 

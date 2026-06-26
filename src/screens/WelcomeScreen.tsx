@@ -23,11 +23,14 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
   };
 
   return (
-    <div
-      className="absolute inset-0 flex flex-col items-center justify-between py-12 px-6 overflow-hidden"
+    <motion.div
+      className="absolute inset-0 flex flex-col items-center justify-center gap-[clamp(8px,2.5dvh,20px)] px-6 py-[min(4vh,24px)] overflow-hidden"
       style={{
         background: 'radial-gradient(ellipse at 50% 25%, #F8E4EF 0%, #FAF3F7 70%)',
       }}
+      variants={staggerContainer}
+      initial="hidden"
+      animate="visible"
     >
       {/* Floating ambient particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -51,92 +54,88 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
 
       {/* Date pill */}
       <motion.div
-        className="glass rounded-full px-4 py-1.5 shadow-sm"
+        className="glass rounded-full px-4 py-1.5 shadow-sm flex-shrink-0"
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={springs.gentle}
       >
-        <span className="text-[11px] font-bold text-[#E58CA3] tracking-widest uppercase">
+        <span className="text-[10px] sm:text-[11px] font-bold text-[#E58CA3] tracking-widest uppercase">
           🎂 June 27, 2025
         </span>
       </motion.div>
 
-      {/* Center content */}
+      {/* Cat — tap it! */}
       <motion.div
-        className="flex flex-col items-center gap-5 text-center"
-        variants={staggerContainer}
-        initial="hidden"
-        animate="visible"
+        variants={fadeUp}
+        className="cursor-pointer select-none relative flex-shrink-0"
+        onClick={handleCatTap}
+        whileTap={{ scale: 0.92 }}
       >
-        {/* Cat — tap it! */}
-        <motion.div
-          variants={fadeUp}
-          className="cursor-pointer select-none relative"
-          onClick={handleCatTap}
-          whileTap={{ scale: 0.92 }}
-        >
-          <CatWaving />
-          {/* Tap sparkle */}
-          {catClicks > 0 && catClicks < 3 && (
-            <motion.div
-              className="absolute -top-4 -right-4 text-xl pointer-events-none"
-              initial={{ opacity: 1, scale: 0, y: 0 }}
-              animate={{ opacity: 0, scale: 1.4, y: -28 }}
-              transition={{ duration: 0.75 }}
-            >
-              ✨
-            </motion.div>
-          )}
-          {showHint && (
-            <motion.div
-              className="absolute -bottom-3 left-1/2 -translate-x-1/2 glass rounded-full px-3 py-1"
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1 }}
-            >
-              <span className="text-[10px] font-bold text-[#E58CA3] tracking-wide">She likes pets! 🐾</span>
-            </motion.div>
-          )}
-        </motion.div>
-
-        {/* Title */}
-        <motion.div variants={fadeUp} className="space-y-1.5">
-          <h1 className="font-display text-5xl font-black leading-tight tracking-tight text-shimmer">
-            Happy<br/>Birthday!
-          </h1>
-          <p className="font-display text-lg font-semibold text-[#2C2230]/55 tracking-wide">
-            <TypewriterText text="Shadow Khadija ✨" delay={0.8} />
-          </p>
-        </motion.div>
-
-        {/* Description */}
-        <motion.p
-          variants={fadeUp}
-          className="font-body text-[#2C2230]/45 text-sm leading-relaxed max-w-[230px]"
-        >
-          A magical adventure crafted just for you.
-          Five levels of birthday surprises await!
-        </motion.p>
+        <CatWaving className="w-[clamp(120px,22dvh,180px)] h-[clamp(120px,22dvh,180px)]" />
+        {/* Tap sparkle */}
+        {catClicks > 0 && catClicks < 3 && (
+          <motion.div
+            className="absolute -top-4 -right-4 text-xl pointer-events-none"
+            initial={{ opacity: 1, scale: 0, y: 0 }}
+            animate={{ opacity: 0, scale: 1.4, y: -28 }}
+            transition={{ duration: 0.75 }}
+          >
+            ✨
+          </motion.div>
+        )}
+        {showHint && (
+          <motion.div
+            className="absolute -bottom-3 left-1/2 -translate-x-1/2 glass rounded-full px-3 py-1"
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+          >
+            <span className="text-[10px] font-bold text-[#E58CA3] tracking-wide">She likes pets! 🐾</span>
+          </motion.div>
+        )}
       </motion.div>
+
+      {/* Title */}
+      <motion.h1
+        variants={fadeUp}
+        className="font-display text-[clamp(2.25rem,6.2dvh,2.75rem)] font-black leading-[1.1] tracking-tight text-shimmer text-center flex-shrink-0"
+      >
+        Happy<br/>Birthday!
+      </motion.h1>
+
+      {/* Subtitle */}
+      <motion.p
+        variants={fadeUp}
+        className="font-display text-[clamp(0.95rem,2.2dvh,1.125rem)] font-semibold text-[#2C2230]/55 tracking-wide text-center flex-shrink-0"
+      >
+        <TypewriterText text="Shadow Khadija ✨" delay={0.8} />
+      </motion.p>
+
+      {/* Description */}
+      <motion.p
+        variants={fadeUp}
+        className="font-body text-[#2C2230]/45 text-[clamp(0.75rem,1.8dvh,0.85rem)] leading-relaxed max-w-[230px] text-center flex-shrink-0"
+      >
+        A magical adventure crafted just for you.
+        Five levels of birthday surprises await!
+      </motion.p>
 
       {/* Start button */}
       <motion.div
-        className="flex flex-col items-center gap-2.5 w-full"
-        initial={{ opacity: 0, y: 32 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ ...springs.gentle, delay: 1.1 }}
+        variants={fadeUp}
+        className="flex flex-col items-center gap-2 w-full max-w-[240px] flex-shrink-0"
       >
         <motion.button
           id="welcome-start-btn"
-          className="btn-primary w-full max-w-[240px] py-4 text-sm"
+          className="btn-primary w-full py-3.5 sm:py-4 text-xs sm:text-sm"
           whileTap={{ scale: 0.96 }}
           onClick={onStart}
         >
           Begin the Adventure ✨
         </motion.button>
-        <p className="text-[10px] text-[#2C2230]/35 font-semibold tracking-widest uppercase">
+        <p className="text-[9px] sm:text-[10px] text-[#2C2230]/35 font-semibold tracking-widest uppercase">
           5 levels · Tap to start
         </p>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }

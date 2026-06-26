@@ -133,7 +133,7 @@ export default function Level2PawMemory({ onComplete, onProgress }: Level2PawMem
       />
 
       {/* Centered content column */}
-      <div className="flex flex-col items-center justify-center gap-5 w-full pt-16">
+      <div className="flex flex-col items-center justify-center gap-[clamp(8px,2.5dvh,16px)] w-full pt-[clamp(3.5rem,9dvh,4.5rem)]">
         {/* HUD Info subtitle */}
         <div className="text-center w-full px-6 pointer-events-none">
           <h2 className="font-display text-xl text-[#2C2230] tracking-wide mb-1">
