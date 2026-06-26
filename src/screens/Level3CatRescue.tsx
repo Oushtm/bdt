@@ -6,6 +6,7 @@ import { springs } from '@/lib/animations';
 import CatKitten from '@/components/cats/CatKitten';
 import type { KittenEmotion } from '@/components/cats/CatKitten';
 import { playSfx } from '@/lib/audioSynth';
+import HuntPopup from '@/components/ui/HuntPopup';
 
 interface Level3CatRescueProps {
   onComplete: () => void;
@@ -149,6 +150,14 @@ export default function Level3CatRescue({ onComplete, onProgress }: Level3CatRes
       className="absolute inset-0 overflow-hidden"
       style={{ background: 'linear-gradient(160deg, #E8D5FF 0%, #FFC8E8 55%, #FFE8F5 100%)' }}
     >
+      {/* Hunt Popup */}
+      <HuntPopup
+        emoji="🐱"
+        title="Rescue the kittens!"
+        description="5 kittens are hiding around the screen. Tap each one to rescue them! 🐾"
+        duration={3500}
+      />
+
       {/* Main kitten guide — top right */}
       <motion.div
         className="absolute right-4 top-20 z-20 pointer-events-none"

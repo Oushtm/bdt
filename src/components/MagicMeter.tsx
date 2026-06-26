@@ -36,21 +36,22 @@ export default function MagicMeter({
   return (
     <>
       <div
-        className="absolute top-0 left-0 right-0 z-50 h-14 px-4 flex items-center justify-between border-b border-white/20"
+        className="absolute top-0 left-0 right-0 z-50 h-14 px-4 flex items-center justify-between border-b border-white/30"
         style={{
-          background: 'rgba(255, 255, 255, 0.45)',
+          background: 'rgba(255, 255, 255, 0.72)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 1px 0 rgba(255,255,255,0.5), 0 2px 8px rgba(44,34,48,0.06)',
         }}
       >
         {/* Left: Level Info */}
         <div className="flex flex-col items-start min-w-[75px]">
           {levelNum ? (
             <>
-              <span className="font-display text-[9px] uppercase tracking-wider text-[#E58CA3] leading-none">
+              <span className="font-display text-[9px] uppercase tracking-wider text-[#E58CA3] leading-none font-bold">
                 Level {levelNum}
               </span>
-              <span className="font-display text-xs font-semibold text-[#2C2230] leading-tight mt-0.5">
+              <span className="font-display text-xs font-black text-[#2C2230] leading-tight mt-0.5">
                 {levelTitle}
               </span>
             </>
@@ -63,7 +64,7 @@ export default function MagicMeter({
 
         {/* Center: Sleek overall progress bar */}
         <div className="flex flex-col items-center gap-1 flex-1 px-2">
-          <span className="text-[9px] font-bold text-[#2C2230]/40 tracking-widest uppercase">
+          <span className="text-[9px] font-bold text-[#2C2230]/60 tracking-widest uppercase">
             Birthday Magic
           </span>
           <div className="w-20 sm:w-24 h-2 rounded-full bg-white/30 overflow-hidden relative border border-white/30">

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { springs } from '@/lib/animations';
 import { playSfx } from '@/lib/audioSynth';
+import HuntPopup from '@/components/ui/HuntPopup';
 
 interface Level1BalloonsProps {
   onComplete: () => void;
@@ -206,6 +207,13 @@ export default function Level1Balloons({ onComplete, onProgress }: Level1Balloon
         background: 'linear-gradient(180deg, #C8A8FF 0%, #FFB8E0 50%, #FFE8F5 100%)',
       }}
     >
+      {/* ── Hunt Popup ──────────────────────────────────────────── */}
+      <HuntPopup
+        emoji="🎈"
+        title="Pop all the balloons!"
+        description="Tap each balloon before it floats away. Pop 12 to win!"
+        duration={3500}
+      />
 
       {/* ── Balloons ────────────────────────────────────────────── */}
       <div className="absolute inset-0">

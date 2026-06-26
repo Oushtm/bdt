@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { springs } from '@/lib/animations';
 import { playSfx } from '@/lib/audioSynth';
+import HuntPopup from '@/components/ui/HuntPopup';
 
 interface Level2PawMemoryProps {
   onComplete: () => void;
@@ -123,18 +124,28 @@ export default function Level2PawMemory({ onComplete, onProgress }: Level2PawMem
         background: 'linear-gradient(180deg, #FDF0F5 0%, #F5E8F3 60%, #EAE2F8 100%)',
       }}
     >
-      {/* HUD Info subtitle */}
-      <div className="absolute top-20 text-center w-full px-6 pointer-events-none">
-        <h2 className="font-display text-xl text-[#2C2230] tracking-wide mb-1">
-          {phase === 'showing' ? 'Remember the Paws! 👀' : phase === 'playing' ? 'Tap the Paws! 🐾' : 'Prepare Yourself... ⚡'}
-        </h2>
-        <p className="text-xs text-[#2C2230]/40 font-semibold tracking-wider uppercase">
-          {phase === 'showing' ? 'Watch carefully' : phase === 'playing' ? `Find the ${activePaws.length - selected.length} remaining` : 'Round starting'}
-        </p>
-      </div>
+      {/* Hunt Popup */}
+      <HuntPopup
+        emoji="🐾"
+        title="Cat Paw Memory!"
+        description="Watch which paws light up, then tap them from memory. Cards hide after 1.8s!"
+        duration={3800}
+      />
 
-      {/* Grid container */}
-      <div className="w-full max-w-[270px] grid grid-cols-3 gap-3 aspect-square mt-10">
+      {/* Centered content column */}
+      <div className="flex flex-col items-center justify-center gap-5 w-full pt-16">
+        {/* HUD Info subtitle */}
+        <div className="text-center w-full px-6 pointer-events-none">
+          <h2 className="font-display text-xl text-[#2C2230] tracking-wide mb-1">
+            {phase === 'showing' ? 'Remember the Paws! 👀' : phase === 'playing' ? 'Tap the Paws! 🐾' : 'Prepare Yourself... ⚡'}
+          </h2>
+          <p className="text-xs text-[#2C2230]/40 font-semibold tracking-wider uppercase">
+            {phase === 'showing' ? 'Watch carefully' : phase === 'playing' ? `Find the ${activePaws.length - selected.length} remaining` : 'Round starting'}
+          </p>
+        </div>
+
+        {/* Grid container */}
+        <div className="w-full max-w-[270px] grid grid-cols-3 gap-3 aspect-square">
         {Array.from({ length: GRID_SIZE }).map((_, idx) => {
           const isPaw = activePaws.includes(idx);
           const isFlipped = revealed[idx];
@@ -189,6 +200,7 @@ export default function Level2PawMemory({ onComplete, onProgress }: Level2PawMem
             </motion.div>
           );
         })}
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { springs } from '@/lib/animations';
 import ConfettiCannon from '@/components/ui/ConfettiCannon';
 import { playSfx } from '@/lib/audioSynth';
+import HuntPopup from '@/components/ui/HuntPopup';
 
 interface Level5GiftProps {
   onComplete: () => void;
@@ -61,6 +62,14 @@ export default function Level5Gift({ onComplete, onProgress }: Level5GiftProps) 
       style={{ background: 'linear-gradient(160deg, #FFE8F5 0%, #FFF4D6 55%, #E8F5FF 100%)' }}
     >
       <ConfettiCannon trigger={showConfetti} />
+
+      {/* Hunt Popup */}
+      <HuntPopup
+        emoji="🎁"
+        title="Unwrap your gift!"
+        description="Shake it 5×, untie the ribbon, then open the box to reveal your surprise!"
+        duration={4200}
+      />
 
       {/* Header Area (HUD Info) */}
       <div className="w-full flex flex-col items-center justify-end h-20 text-center pointer-events-none z-20">

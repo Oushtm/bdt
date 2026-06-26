@@ -4,6 +4,7 @@ import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { springs } from '@/lib/animations';
 import { playSfx } from '@/lib/audioSynth';
+import HuntPopup from '@/components/ui/HuntPopup';
 
 interface Level4PuzzleProps {
   onComplete: () => void;
@@ -64,6 +65,14 @@ export default function Level4Puzzle({ onComplete, onProgress }: Level4PuzzlePro
       className="absolute inset-0 flex flex-col overflow-hidden"
       style={{ background: 'linear-gradient(160deg, #FFE8F5 0%, #E8D5FF 60%, #FFF4FA 100%)' }}
     >
+      {/* Hunt Popup */}
+      <HuntPopup
+        emoji="🧩"
+        title="Assemble the message!"
+        description="Drag & reorder the word tiles to spell the birthday message correctly."
+        duration={4000}
+      />
+
       {/* Target pattern */}
       <div className="flex flex-col items-center px-6 pt-20 pb-4 mb-4">
         <p className="text-[10px] font-bold text-[#3D3142]/40 tracking-widest uppercase mb-2">
